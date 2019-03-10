@@ -1,0 +1,70 @@
+---
+title: "Ýçme Suyu Kaynak Analizi"
+author: Ýsmail Yoþumaz & Utku Erdoðan
+date: 7 Þubat 2017
+header-includes:
+    - \usepackage{amsmath}
+    - \usepackage{tikz}
+    - \usetikzlibrary{matrix,fit,backgrounds}
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
+  pdf_document:
+    toc: true
+    toc_depth: 1
+---
+
+```{r, echo=FALSE}
+setwd("C:/Users/utku/Documents/ab2017/Proje/")
+```
+
+
+# Proje Konusu
+
+Tuik verisi ile hazýrlanan bu projede, belediyelerin 1994 ile 2014 yýllarý arasýnda hangi su kaynaklarýndan ne kadar m^3 su çektiklerini gösteren bir projedir.
+Veri için : http://www.tuik.gov.tr/PreIstatistikTablo.do?istab_id=1578
+ 
+Yukarýda su kaynaklarý tiplerinin yýllara göre deðiþimi grafikte özetlenmiþtir.
+ 
+ 
+Bu grafikta akarsu özel olarak incelenmiþtir. Dikkat edilirse 2014 yýlýnda maksimum seviyeye ulaþmýþtýr. Buna etki eden en önemli faktörlerden birisi o dönemdeki yaðýþ miktarýnýn yüksekliði olabilir.
+
+## R kodumuz
+
+R kodu aþaðýda yer almaktadýr.
+
+```{r}
+library(tidyverse)
+sular=read.table("sular.csv",header=T, sep=";")
+sular2=
+  sular%>%
+  gather(key=YIL,value=su,-tip)
+ggplot(data=sular2,aes(x=tip,y=su,fill=YIL))+geom_bar(stat="identity",position = "dodge")
+akarsu=
+  sular2%>%
+  filter(tip=="Akarsu")  
+ggplot(data=akarsu,aes(x=tip,y=su,fill=YIL))+geom_bar(stat="identity",position = "dodge")
+```
+
+###Sonuç
+
+1994-2014 yýllarý arasýnda belediyelerin kullandýðý su kaynaklarýna göre daðýlýmý görülmüþtür. Su kullanýmýnda akarsu kaynaðýný incelediðimizde 2014 yýlýnda kullanýmýn arttýðý görülmektedir.
+
+###Ýletiþim
+
+###Utku Erdoðan
+
+ÝTÜ Ýþletme Mühendisliði
+
+Bahçeþehir Üniversitesi Bilgi Teknolojileri Yüksek lisans 1. Sýnýf
+
+E-mail:utkuerdogan100@gmail.com 
+
+Linkedin:linkedin.com/in/utkuerdogan/
+
+###Ýsmail Yoþumaz
+
+Bilgi Ýþlem Daire Baþkanlýðý. 
+
+Dumlupýnar Üniversitesi
